@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.spring_javafx.spring_javafx.controllers.LoginController">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #6A1B9A;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="176.0" fitWidth="225.0" layoutX="13.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+
+               <effect>
+                  <Lighting diffuseConstant="2.0" specularConstant="0.22" specularExponent="16.33" surfaceScale="3.43">
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+
+                  </Lighting>
+               </effect>
+               <image>
+                  <Image url="@../img/style.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="400.0" prefWidth="350.0" style="-fx-background-color: #EEEEEE;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="accessButton" layoutX="93.0" layoutY="286.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" style="-fx-background-color: #43A047;" text="Entrar" textFill="WHITE">
+               <font>
+                  <Font name="Nunito-Regular" size="16.0" />
+               </font>
+               <graphic>
+
+               </graphic>
+            </Button>
+            <Button fx:id="cancelButton" layoutX="95.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="164.0" style="-fx-background-color: #E53935;" text="Cancelar" textFill="WHITE">
+               <font>
+                  <Font name="Nunito-Regular" size="16.0" />
+               </font>
+               <graphic>
+
+               </graphic>
+            </Button>
+            <TextField fx:id="usernameInput" layoutX="77.0" layoutY="144.0" prefHeight="30.0" prefWidth="200.0" promptText="Nombre de usuario">
+               <font>
+                  <Font name="Nunito-Regular" size="16.0" />
+               </font>
+            </TextField>
+            <Label alignment="CENTER" layoutX="92.0" layoutY="121.0" prefHeight="18.0" prefWidth="166.0" text="Username">
+               <font>
+                  <Font name="Nunito-Regular" size="16.0" />
+               </font>
+               <graphic>
+
+               </graphic>
+            </Label>
+            <Label alignment="CENTER" layoutX="93.0" layoutY="183.0" prefHeight="18.0" prefWidth="166.0" text="Password">
+               <font>
+                  <Font name="Nunito-Regular" size="16.0" />
+               </font>
+               <graphic>
+
+               </graphic>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="350.0" text="Login">
+               <font>
+                  <Font name="Nunito-Bold" size="32.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="passInput" layoutX="77.0" layoutY="206.0" prefHeight="30.0" prefWidth="200.0" promptText="Contraseña">
+               <font>
+                  <Font name="Nunito-Regular" size="16.0" />
+               </font>
+            </PasswordField>
+            <Label fx:id="errorText" alignment="CENTER" layoutX="1.0" layoutY="74.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="350.0" textFill="RED">
+               <font>
+                  <Font name="Nunito-Regular" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="passTextHidden" disable="true" layoutX="77.0" layoutY="206.0" prefHeight="30.0" prefWidth="200.0">
+               <font>
+                  <Font name="Nunito-Regular" size="16.0" />
+               </font>
+            </TextField>
+            <CheckBox fx:id="checkboxPass" layoutX="117.0" layoutY="255.0" mnemonicParsing="false" text="Ver la contraseña">
+               <font>
+                  <Font name="Nunito-Regular" size="12.0" />
+               </font>
+               <graphic>
+
+               </graphic>
+            </CheckBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
