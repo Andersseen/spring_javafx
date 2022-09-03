@@ -72,11 +72,13 @@ public class LoginController implements Initializable {
             try {
                 UserVo user = userDaoImp.getUser(username);
                 if(user != null) {
-                    errorText.setText("Yeah");
-                    navigation.showDashboardView();
-
+                    if(user.getUsername().equals(username) && user.getPassword().equals(pass)){
+                        navigation.showDashboardView();
+                    }else {
+                        errorText.setText("Usuario o contraseña invalido");
+                    }
                 }else {
-                    errorText.setText("Usuario o contraseña invalido");
+                    errorText.setText("Este ususario no existe");
                 }
             } catch ( Exception e1) {
                 e1.printStackTrace();

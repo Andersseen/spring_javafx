@@ -6,9 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 
 
@@ -34,9 +34,13 @@ public class Navigation {
         Scene scene;
         if(view.equals(LOGIN_VIEW)){
             scene = new Scene(loadFxml(view), 600, 400);
+            stage.setTitle("Login");
+            stage.setResizable(false);
         }else{
             scene = new Scene(loadFxml(view), 1200, 600);
+            stage.setTitle("Dashboard");
         }
+        stage.getIcons().add(new Image("/img/logo.png"));
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();

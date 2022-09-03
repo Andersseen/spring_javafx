@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -11,96 +12,142 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.spring_javafx.spring_javafx.controllers.LoginController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #6A1B9A;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="176.0" fitWidth="225.0" layoutX="13.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
-
-               <effect>
-                  <Lighting diffuseConstant="2.0" specularConstant="0.22" specularExponent="16.33" surfaceScale="3.43">
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-
-                  </Lighting>
-               </effect>
-               <image>
-                  <Image url="@../img/style.png" />
-               </image>
-            </ImageView>
+            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="176.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
+      
+                     <effect>
+                        <Lighting diffuseConstant="2.0" specularConstant="0.22" specularExponent="16.33" surfaceScale="3.43">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+      
+                        </Lighting>
+                     </effect>
+                     <image>
+                        <Image url="@../img/style.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
          </children></AnchorPane>
    </left>
    <center>
       <AnchorPane prefHeight="400.0" prefWidth="350.0" style="-fx-background-color: #EEEEEE;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="accessButton" layoutX="93.0" layoutY="286.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" style="-fx-background-color: #43A047;" text="Entrar" textFill="WHITE">
+            <GridPane prefHeight="400.0" prefWidth="354.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="-Infinity" minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <GridPane GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                  <Label fx:id="errorText" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="350.0" textFill="RED" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Nunito-Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="passInput" prefHeight="30.0" prefWidth="200.0" promptText="Contraseña" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Nunito-Regular" size="16.0" />
+                     </font>
+                           <GridPane.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </GridPane.margin>
+                  </PasswordField>
+                  <TextField fx:id="passTextHidden" disable="true" prefHeight="30.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Nunito-Regular" size="16.0" />
+                     </font>
+                           <GridPane.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="usernameInput" prefHeight="30.0" prefWidth="200.0" promptText="Nombre de usuario" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                     <font>
+                        <Font name="Nunito-Regular" size="16.0" />
+                     </font>
+                           <GridPane.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </GridPane.margin>
+                  </TextField>
+                  <CheckBox fx:id="checkboxPass" mnemonicParsing="false" text="Ver la contraseña" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Nunito-Regular" size="12.0" />
+                     </font>
+      
+                  </CheckBox>
+                        <Label alignment="CENTER" layoutX="92.0" layoutY="121.0" prefHeight="18.0" prefWidth="166.0" text="Username" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="Nunito-Regular" size="16.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="93.0" layoutY="183.0" prefHeight="18.0" prefWidth="166.0" text="Password" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="Nunito-Regular" size="16.0" />
+                           </font>
+                           <graphic>
+
+                           </graphic>
+                        </Label>
+                     </children>
+                  </GridPane>
+            <Button fx:id="accessButton" layoutX="93.0" layoutY="286.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" style="-fx-background-color: #43A047;" text="Entrar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="Nunito-Regular" size="16.0" />
                </font>
-               <graphic>
 
-               </graphic>
             </Button>
-            <Button fx:id="cancelButton" layoutX="95.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="164.0" style="-fx-background-color: #E53935;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="cancelButton" layoutX="95.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="164.0" style="-fx-background-color: #E53935;" text="Cancelar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="Nunito-Regular" size="16.0" />
                </font>
-               <graphic>
 
-               </graphic>
             </Button>
-            <TextField fx:id="usernameInput" layoutX="77.0" layoutY="144.0" prefHeight="30.0" prefWidth="200.0" promptText="Nombre de usuario">
-               <font>
-                  <Font name="Nunito-Regular" size="16.0" />
-               </font>
-            </TextField>
-            <Label alignment="CENTER" layoutX="92.0" layoutY="121.0" prefHeight="18.0" prefWidth="166.0" text="Username">
-               <font>
-                  <Font name="Nunito-Regular" size="16.0" />
-               </font>
-               <graphic>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="350.0" text="Login" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Nunito-Bold" size="32.0" />
+                     </font>
+                  </Label>
 
-               </graphic>
-            </Label>
-            <Label alignment="CENTER" layoutX="93.0" layoutY="183.0" prefHeight="18.0" prefWidth="166.0" text="Password">
-               <font>
-                  <Font name="Nunito-Regular" size="16.0" />
-               </font>
-               <graphic>
-
-               </graphic>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="350.0" text="Login">
-               <font>
-                  <Font name="Nunito-Bold" size="32.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="passInput" layoutX="77.0" layoutY="206.0" prefHeight="30.0" prefWidth="200.0" promptText="Contraseña">
-               <font>
-                  <Font name="Nunito-Regular" size="16.0" />
-               </font>
-            </PasswordField>
-            <Label fx:id="errorText" alignment="CENTER" layoutX="1.0" layoutY="74.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="350.0" textFill="RED">
-               <font>
-                  <Font name="Nunito-Regular" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="passTextHidden" disable="true" layoutX="77.0" layoutY="206.0" prefHeight="30.0" prefWidth="200.0">
-               <font>
-                  <Font name="Nunito-Regular" size="16.0" />
-               </font>
-            </TextField>
-            <CheckBox fx:id="checkboxPass" layoutX="117.0" layoutY="255.0" mnemonicParsing="false" text="Ver la contraseña">
-               <font>
-                  <Font name="Nunito-Regular" size="12.0" />
-               </font>
-               <graphic>
-
-               </graphic>
-            </CheckBox>
+               </children>
+            </GridPane>
          </children>
       </AnchorPane>
    </center>
