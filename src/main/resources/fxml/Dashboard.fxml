@@ -29,7 +29,7 @@
                         <Font name="Nunito-Regular" size="18.0" />
                     </font>
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/group.png" />
                      </image>
@@ -44,9 +44,9 @@
                         <Font name="Nunito-Regular" size="18.0" />
                     </font>
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/plus-sign.png" />
+                        <Image url="@../img/add.png" />
                      </image>
                      <effect>
                         <ColorAdjust brightness="1.0" />
@@ -68,7 +68,7 @@
                         <Font name="Nunito-Regular" size="18.0" />
                     </font>
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/export.png" />
                      </image>
@@ -83,7 +83,7 @@
                         <Font name="Nunito-Regular" size="18.0" />
                     </font>
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/import.png" />
                      </image>

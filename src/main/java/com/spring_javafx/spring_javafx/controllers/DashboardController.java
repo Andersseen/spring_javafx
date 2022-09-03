@@ -1,6 +1,7 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 import com.spring_javafx.spring_javafx.Navigation;
+import com.spring_javafx.spring_javafx.services.Feedback;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -17,6 +18,10 @@ import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
     private final String LIST_PATIENTS = "/fxml/ListPatients.fxml";
     private final String ADD_PATIENT = "/fxml/AddPatient.fxml";
+
+    @Lazy
+    @Autowired
+    private Feedback feedback;
 
     @Lazy
     @Autowired
@@ -70,11 +75,11 @@ public class DashboardController implements Initializable {
 
     @FXML
     public void onClickExport(){
-        System.out.println("click on Export");
+        feedback.alertInformation(" click on export");
     }
     @FXML
     public void onClickImport(){
-        System.out.println("click on Import");
+        feedback.alertInformation(" click on import");
     }
 
 }

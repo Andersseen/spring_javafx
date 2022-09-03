@@ -8,35 +8,32 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import java.awt.event.ActionEvent;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 @Component
 public class ListPatientsController implements Initializable {
+    @Lazy
+    @Autowired
     private Feedback feedback;
     private String message;
-
 
     @Autowired
     PatientDaoImp patientDaoImp;
 
-
-    @FXML
-    private Button aaa;
     @FXML
     private TableView<PatientVo> table;
     @FXML
@@ -65,15 +62,6 @@ public class ListPatientsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        aaa.setOnAction(ActionEvent ->{
-            System.out.println("dasdasdsd");
-            System.out.println("dasdasdsd");
-            System.out.println("dasdasdsd");
-            System.out.println("dasdasdsd");
-            System.out.println("dasdasdsd");
-            System.out.println(patientDaoImp.getPatients());
-        });
-
         try{
             ArrayList<PatientVo> clients = (ArrayList<PatientVo>) patientDaoImp.getPatients();
             if(clients != null){
@@ -94,8 +82,8 @@ public class ListPatientsController implements Initializable {
         note.setCellValueFactory(new PropertyValueFactory<>("note"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        Callback<TableColumn<PatientVo, String>, TableCell<PatientVo, String>> cellFactory = (TableColumn<PatientVo, String> param) -> new TableCell() {
-
+        Callback<TableColumn<PatientVo, String>, TableCell<PatientVo, String>> cellFactory = (TableColumn<PatientVo, String> param) -> new TableCell<>() {
+            @Override
             public void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
 
@@ -103,17 +91,58 @@ public class ListPatientsController implements Initializable {
                     setGraphic(null);
 
                 } else {
+                    ImageView editIcon = createIcon("/img/edit.png");
+                    ImageView deleteIcon = createIcon("/img/delete.png");
+                    ImageView historicalIcon = createIcon("/img/file.png");
 
+//                    ACCIONES
                     //**************
-                    HBox managebtn = new HBox();
-                    managebtn.setStyle("-fx-alignment:center");
+                    deleteIcon.setOnMouseClicked((MouseEvent event) -> {
+                        PatientVo customer = table.getSelectionModel().getSelectedItem();
+                        patientDaoImp.deletePatient(customer.getId());
 
+
+                        message = "Estas seguro que quieres eliminar este cliente?";
+
+                        if (feedback.alertConfirmation(message)) {
+                            System.out.println("delete");
+                        }
+                    });
+                    //**************
+                    editIcon.setOnMouseClicked((MouseEvent event) -> {
+                        PatientVo customer = table.getSelectionModel().getSelectedItem();
+                        feedback.alertInformation("edit" + customer.toString());
+                    });
+                    //**************
+                    historicalIcon.setOnMouseClicked((MouseEvent event) -> {
+                        PatientVo customer = table.getSelectionModel().getSelectedItem();
+                        feedback.alertInformation("historial" + customer.toString());
+                    });
+                    //**************
+                    HBox managebtn = createHBox(historicalIcon, editIcon, deleteIcon);
                     setGraphic(managebtn);
                 }
                 setText(null);
             }
         };
+
         action.setCellFactory(cellFactory);
         table.setItems(list);
+    }
+
+    private HBox createHBox(ImageView historicalIcon, ImageView editIcon,ImageView deleteIcon){
+        HBox managebtn = new HBox(historicalIcon, editIcon, deleteIcon);
+        managebtn.setStyle("-fx-alignment:center");
+        HBox.setMargin(historicalIcon, new Insets(0, 0, 0, 3));
+
+        HBox.setMargin(editIcon, new Insets(0, 2, 0, 2));
+        HBox.setMargin(deleteIcon, new Insets(0, 3, 0, 0));
+        return managebtn;
+    }
+    private ImageView createIcon(String src){
+        ImageView icon = new ImageView(src);
+        icon.setFitHeight(18);
+        icon.setFitWidth(18);
+        return icon;
     }
 }

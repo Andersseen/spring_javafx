@@ -126,9 +126,9 @@
                               <Insets />
                            </GridPane.margin>
                            <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateY="-2.0">
                                  <image>
-                                    <Image url="@../img/profile.png" />
+                                    <Image url="@../img/user.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -173,7 +173,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/log-out.png" />
+                              <Image url="@../img/logout.png" />
                            </image>
                            <effect>
                               <ColorAdjust brightness="1.0" />
@@ -187,13 +187,10 @@
                         <Font name="Nunito-Bold" size="32.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-70.0">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-70.0">
                            <image>
                               <Image url="@../img/shield.png" />
                            </image>
-                           <effect>
-                              <ColorAdjust brightness="1.0" contrast="-1.0" hue="-1.0" saturation="-1.0" />
-                           </effect>
                         </ImageView>
                      </graphic>
                      <GridPane.margin>

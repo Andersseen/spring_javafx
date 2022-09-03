@@ -4,10 +4,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import org.apache.xmlbeans.SystemProperties;
-
+import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.Optional;
 
+@Service
 public class Feedback {
     public boolean alertConfirmation(String message){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
