@@ -13,7 +13,6 @@ import java.io.IOException;
 
 public class Launcher extends Application {
     private ConfigurableApplicationContext applicationContext;
-    private Stage stage;
 
 
     @Override
@@ -27,6 +26,9 @@ public class Launcher extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
     }
+
+//    FXMLLoader loader = new FXMLLoader(getClass.getResource(resource));
+//        loader.setController(applicationContext.getBean(controller));
 
 
 }
