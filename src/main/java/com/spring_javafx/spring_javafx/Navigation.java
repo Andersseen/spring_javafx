@@ -45,13 +45,13 @@ public class Navigation {
         stage.centerOnScreen();
         stage.show();
     }
-    private Parent loadFxml(String view) {
+    public Parent loadFxml(String view) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(view));
         loader.setControllerFactory(param -> getViewController(view));
         try {
             loader.load();
         } catch (IOException ex) {
-            System.out.println("Error");
+            System.out.println("Error with loadFxml in Navigation");
         }
         return loader.getRoot();
     }
