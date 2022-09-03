@@ -49,8 +49,7 @@ public class Navigation {
         } catch (IOException ex) {
             System.out.println("Error");
         }
-        Parent root = loader.getRoot();
-        return root;
+        return loader.getRoot();
     }
     private Object getViewController(String view) {
         if (DASHBOARD_VIEW.equals(view)) {

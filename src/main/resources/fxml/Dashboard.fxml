@@ -30,9 +30,10 @@
                             <font>
                                 <Font name="Nunito-Regular" size="20.0" />
                             </font>
-
+      
                         </Button>
-                    </graphic></Button>
+                    </graphic>
+            </Button>
                 <Button fx:id="btn3" layoutY="249.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #6a1b9a;" text="Agregar cliente" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                     <font>
                         <Font name="Nunito-Regular" size="18.0" />
@@ -42,9 +43,10 @@
                             <font>
                                 <Font name="Nunito-Regular" size="20.0" />
                             </font>
-
+      
                         </Button>
-                    </graphic></Button>
+                    </graphic>
+            </Button>
                 <Pane layoutX="5.0" layoutY="365.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: WHITE;" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
                         <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="CONTROL DE ARCHIVOS">
@@ -63,7 +65,7 @@
                             <font>
                                 <Font name="Nunito-Regular" size="20.0" />
                             </font>
-
+      
                         </Button>
                     </graphic>
                 </Button>
@@ -76,7 +78,7 @@
                             <font>
                                 <Font name="Nunito-Regular" size="20.0" />
                             </font>
-
+      
                         </Button>
                     </graphic>
                 </Button>
@@ -99,24 +101,6 @@
                     </font>
 
                 </Label>
-                <Button fx:id="close" layoutX="1138.0" layoutY="4.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="60.0" style="-fx-background-color: #6A1B9A;" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <font>
-                        <Font name="Nunito-Bold" size="20.0" />
-                    </font>
-
-                </Button>
-                <Button fx:id="minimize" layoutX="1012.0" layoutY="2.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="60.0" style="-fx-background-color: #6A1B9A;" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="0.0">
-                    <font>
-                        <Font name="Nunito-Bold" size="20.0" />
-                    </font>
-
-                </Button>
-                <Button fx:id="maximize" layoutX="1075.0" layoutY="3.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="60.0" style="-fx-background-color: #6A1B9A;" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="0.0">
-                    <font>
-                        <Font name="Nunito-Bold" size="20.0" />
-                    </font>
-
-                </Button>
             </children>
         </AnchorPane>
     </top>

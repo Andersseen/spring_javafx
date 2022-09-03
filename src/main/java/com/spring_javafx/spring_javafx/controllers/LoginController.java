@@ -1,10 +1,8 @@
 package com.spring_javafx.spring_javafx.controllers;
 
-import com.spring_javafx.spring_javafx.Launcher;
 import com.spring_javafx.spring_javafx.Navigation;
 import com.spring_javafx.spring_javafx.models.user.UserDaoImp;
 import com.spring_javafx.spring_javafx.models.user.UserVo;
-import com.spring_javafx.spring_javafx.repository.UserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -46,9 +44,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        accessButton.setOnAction(ActionEvent ->{
-            validate();
-        });
+        accessButton.setOnAction(ActionEvent -> validate());
         cancelButton.setOnAction(ActionEvent ->{
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();
