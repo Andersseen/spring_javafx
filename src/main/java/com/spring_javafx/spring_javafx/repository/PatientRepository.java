@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends CrudRepository<PatientVo, Integer> {
     List<PatientVo> findAll();
+    PatientVo findById(int id);
 }

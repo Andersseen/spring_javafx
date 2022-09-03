@@ -8,7 +8,7 @@ import java.sql.Date;
 
 @ToString
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class PatientVo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

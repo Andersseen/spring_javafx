@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
@@ -193,7 +192,7 @@
                               <Image url="@../img/shield.png" />
                            </image>
                            <effect>
-                              <Bloom threshold="0.28" />
+                              <ColorAdjust brightness="1.0" contrast="-1.0" hue="-1.0" saturation="-1.0" />
                            </effect>
                         </ImageView>
                      </graphic>

@@ -33,6 +33,7 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         addPatient.setOnAction(ActionEvent ->{
             try {
                 switchPage(ADD_PATIENT);

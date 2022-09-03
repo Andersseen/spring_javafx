@@ -1,13 +1,14 @@
 package com.spring_javafx.spring_javafx.controllers;
 
+
+import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
-import com.spring_javafx.spring_javafx.models.user.UserDaoImp;
-import com.spring_javafx.spring_javafx.repository.PatientRepository;
 import com.spring_javafx.spring_javafx.services.Feedback;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,7 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,9 +30,13 @@ public class ListPatientsController implements Initializable {
     private Feedback feedback;
     private String message;
 
-    @Autowired
-    PatientRepository patientRepository;
 
+    @Autowired
+    PatientDaoImp patientDaoImp;
+
+
+    @FXML
+    private Button aaa;
     @FXML
     private TableView<PatientVo> table;
     @FXML
@@ -57,8 +65,17 @@ public class ListPatientsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        aaa.setOnAction(ActionEvent ->{
+            System.out.println("dasdasdsd");
+            System.out.println("dasdasdsd");
+            System.out.println("dasdasdsd");
+            System.out.println("dasdasdsd");
+            System.out.println("dasdasdsd");
+            System.out.println(patientDaoImp.getPatients());
+        });
+
         try{
-            ArrayList<PatientVo> clients = (ArrayList<PatientVo>) patientRepository.findAll();
+            ArrayList<PatientVo> clients = (ArrayList<PatientVo>) patientDaoImp.getPatients();
             if(clients != null){
                 list.addAll(clients);
             }else{
