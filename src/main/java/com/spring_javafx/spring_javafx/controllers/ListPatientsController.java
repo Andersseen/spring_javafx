@@ -1,6 +1,7 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 
+import com.spring_javafx.spring_javafx.Navigation;
 import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
@@ -20,12 +21,21 @@ import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 @Component
 public class ListPatientsController implements Initializable {
+    private String EDIT_PATIENT = "/fxml/EditPatient.fxml";
+    private String DASHBOARD_VIEW = "/fxml/Dashboard.fxml";
+
+    @Lazy
+    @Autowired
+    private Navigation navigation;
+
     @Lazy
     @Autowired
     private Feedback feedback;
@@ -112,6 +122,7 @@ public class ListPatientsController implements Initializable {
                     editIcon.setOnMouseClicked((MouseEvent event) -> {
                         PatientVo customer = table.getSelectionModel().getSelectedItem();
                         feedback.alertInformation("edit" + customer.toString());
+                        
                     });
                     //**************
                     historicalIcon.setOnMouseClicked((MouseEvent event) -> {

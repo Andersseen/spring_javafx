@@ -23,8 +23,8 @@ public class PatientDaoImp implements PatientDao {
     }
 
     @Override
-    public void updatePatient(int id) {
-        PatientVo patient = repo.findById(id);
+    public void updatePatient(PatientVo patientVo) {
+        PatientVo patient = repo.findById(patientVo.getId());
         if(patient != null){
             repo.save(patient);
         }

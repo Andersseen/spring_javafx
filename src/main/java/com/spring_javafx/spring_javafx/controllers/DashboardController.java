@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
     private final String LIST_PATIENTS = "/fxml/ListPatients.fxml";
     private final String ADD_PATIENT = "/fxml/AddPatient.fxml";
+    private final String EDIT_PATIENT = "/fxml/EditPatient.fxml";
 
     @Lazy
     @Autowired
@@ -64,11 +65,17 @@ public class DashboardController implements Initializable {
 
     public void switchPage(String view) throws IOException {
         Parent root;
-        if(view.equals(LIST_PATIENTS)){
-            root = navigation.loadFxml(LIST_PATIENTS);
-        }else{
-            root = navigation.loadFxml(ADD_PATIENT);
-        }
+        root = switch (view) {
+            case ADD_PATIENT ->  navigation.loadFxml(ADD_PATIENT);
+            case EDIT_PATIENT -> navigation.loadFxml(EDIT_PATIENT);
+            default -> navigation.loadFxml(LIST_PATIENTS);
+        };
+
+//        if(view.equals(LIST_PATIENTS)){
+//            root = navigation.loadFxml(LIST_PATIENTS);
+//        }else{
+//            root = navigation.loadFxml(ADD_PATIENT);
+//        }
         contentSwitcher.getChildren().removeAll();
         contentSwitcher.getChildren().setAll(root);
     }

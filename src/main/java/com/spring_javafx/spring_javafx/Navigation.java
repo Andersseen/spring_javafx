@@ -1,9 +1,7 @@
 package com.spring_javafx.spring_javafx;
 
-import com.spring_javafx.spring_javafx.controllers.AddPatientController;
-import com.spring_javafx.spring_javafx.controllers.DashboardController;
-import com.spring_javafx.spring_javafx.controllers.ListPatientsController;
-import com.spring_javafx.spring_javafx.controllers.LoginController;
+import com.spring_javafx.spring_javafx.controllers.*;
+import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,8 +17,9 @@ public class Navigation {
 
     private static final String LOGIN_VIEW = "/fxml/Login.fxml";
     private static final String DASHBOARD_VIEW = "/fxml/Dashboard.fxml";
-    private final String LIST_PATIENTS = "/fxml/ListPatients.fxml";
-    private final String ADD_PATIENT = "/fxml/AddPatient.fxml";
+    private static final String LIST_PATIENTS = "/fxml/ListPatients.fxml";
+    private static final String ADD_PATIENT = "/fxml/AddPatient.fxml";
+    private static final String EDIT_PATIENT = "/fxml/EditPatient.fxml";
 
     private Stage stage;
     @Autowired
@@ -31,6 +30,8 @@ public class Navigation {
     private ListPatientsController listPatientsController;
     @Autowired
     private AddPatientController addPatientController;
+    @Autowired
+    private EditController editController;
 
     public void showLoginView() {
         show(LOGIN_VIEW);
@@ -69,10 +70,11 @@ public class Navigation {
             case DASHBOARD_VIEW -> dashboardController;
             case LIST_PATIENTS -> listPatientsController;
             case ADD_PATIENT -> addPatientController;
+            case EDIT_PATIENT -> editController;
             default -> loginController;
-
         };
     }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
