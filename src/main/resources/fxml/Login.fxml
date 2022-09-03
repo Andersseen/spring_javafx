@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
@@ -108,6 +110,13 @@
                      <font>
                         <Font name="Nunito-Regular" size="12.0" />
                      </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/see.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
       
                   </CheckBox>
                         <Label alignment="CENTER" layoutX="92.0" layoutY="121.0" prefHeight="18.0" prefWidth="166.0" text="Username" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -117,6 +126,13 @@
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/profile.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
                         <Label alignment="CENTER" layoutX="93.0" layoutY="183.0" prefHeight="18.0" prefWidth="166.0" text="Password" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                            <font>
@@ -125,6 +141,13 @@
                            <graphic>
 
                            </graphic>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/lock.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
                      </children>
                   </GridPane>
@@ -132,18 +155,51 @@
                <font>
                   <Font name="Nunito-Regular" size="16.0" />
                </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/log-in.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
+                        </ImageView>
+                     </graphic>
 
             </Button>
             <Button fx:id="cancelButton" layoutX="95.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="164.0" style="-fx-background-color: #E53935;" text="Cancelar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="Nunito-Regular" size="16.0" />
                </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/log-out.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
+                        </ImageView>
+                     </graphic>
 
             </Button>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="350.0" text="Login" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Nunito-Bold" size="32.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-70.0">
+                           <image>
+                              <Image url="@../img/shield.png" />
+                           </image>
+                           <effect>
+                              <Bloom threshold="0.28" />
+                           </effect>
+                        </ImageView>
+                     </graphic>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin>
                   </Label>
 
                </children>
