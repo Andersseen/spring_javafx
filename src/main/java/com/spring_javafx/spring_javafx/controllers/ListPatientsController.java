@@ -2,6 +2,8 @@ package com.spring_javafx.spring_javafx.controllers;
 
 
 import com.spring_javafx.spring_javafx.Navigation;
+import com.spring_javafx.spring_javafx.models.historical.HistoricalDaoImp;
+import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
 import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
@@ -34,15 +36,18 @@ public class ListPatientsController implements Initializable {
 
     @Lazy
     @Autowired
-    private Navigation navigation;
+    private DashboardController dashboardCL;
 
     @Lazy
     @Autowired
     private Feedback feedback;
     private String message;
-
+    @Lazy
     @Autowired
     PatientDaoImp patientDaoImp;
+    @Lazy
+    @Autowired
+    HistoricalDaoImp historicalDaoImp;
 
     @FXML
     private TableView<PatientVo> table;
@@ -108,10 +113,8 @@ public class ListPatientsController implements Initializable {
 //                    ACCIONES
                     //**************
                     deleteIcon.setOnMouseClicked((MouseEvent event) -> {
-                        PatientVo customer = table.getSelectionModel().getSelectedItem();
-                        patientDaoImp.deletePatient(customer.getId());
-
-
+                        PatientVo patient = table.getSelectionModel().getSelectedItem();
+                        patientDaoImp.deletePatient(patient.getId());
                         message = "Estas seguro que quieres eliminar este cliente?";
 
                         if (feedback.alertConfirmation(message)) {
@@ -120,14 +123,29 @@ public class ListPatientsController implements Initializable {
                     });
                     //**************
                     editIcon.setOnMouseClicked((MouseEvent event) -> {
-                        PatientVo customer = table.getSelectionModel().getSelectedItem();
-                        feedback.alertInformation("edit" + customer.toString());
-                        
+                        PatientVo patient = table.getSelectionModel().getSelectedItem();
+                        try {
+                            dashboardCL.getEditPage(patient);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            feedback.alertInformation("Ha pasado un error, no puedes editar este paciente");
+                        }
                     });
                     //**************
                     historicalIcon.setOnMouseClicked((MouseEvent event) -> {
-                        PatientVo customer = table.getSelectionModel().getSelectedItem();
-                        feedback.alertInformation("historial" + customer.toString());
+                        PatientVo patient = table.getSelectionModel().getSelectedItem();
+                        HistoricalVo historical =  historicalDaoImp.getHistorical(patient.getId());
+                        if(historical != null){
+                            try {
+                                dashboardCL.getHistoricalPage(historical);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                feedback.alertInformation("Ha pasado un error, no puedes ver historico de este paciente");
+                            }
+                        }else{
+                            feedback.alertInformation("h vacio");
+                        }
+
                     });
                     //**************
                     HBox managebtn = createHBox(historicalIcon, editIcon, deleteIcon);

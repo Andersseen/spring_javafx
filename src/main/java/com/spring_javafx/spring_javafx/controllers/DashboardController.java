@@ -1,6 +1,8 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 import com.spring_javafx.spring_javafx.Navigation;
+import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
+import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,9 +18,9 @@ import java.util.ResourceBundle;
 
 @Component
 public class DashboardController implements Initializable {
-    private final String LIST_PATIENTS = "/fxml/ListPatients.fxml";
-    private final String ADD_PATIENT = "/fxml/AddPatient.fxml";
-    private final String EDIT_PATIENT = "/fxml/EditPatient.fxml";
+    private static final String LIST_PATIENTS = "/fxml/ListPatients.fxml";
+    private static final String ADD_PATIENT = "/fxml/AddPatient.fxml";
+    private static final String EDIT_PATIENT = "/fxml/EditPatient.fxml";
 
     @Lazy
     @Autowired
@@ -65,20 +67,26 @@ public class DashboardController implements Initializable {
 
     public void switchPage(String view) throws IOException {
         Parent root;
-        root = switch (view) {
-            case ADD_PATIENT ->  navigation.loadFxml(ADD_PATIENT);
-            case EDIT_PATIENT -> navigation.loadFxml(EDIT_PATIENT);
-            default -> navigation.loadFxml(LIST_PATIENTS);
-        };
-
-//        if(view.equals(LIST_PATIENTS)){
-//            root = navigation.loadFxml(LIST_PATIENTS);
-//        }else{
-//            root = navigation.loadFxml(ADD_PATIENT);
-//        }
+        if(view.equals(ADD_PATIENT)){
+            root = navigation.loadFxml(ADD_PATIENT);
+        }else{
+            root =navigation.loadFxml(LIST_PATIENTS);
+        }
         contentSwitcher.getChildren().removeAll();
         contentSwitcher.getChildren().setAll(root);
     }
+    public void getEditPage( PatientVo patient) throws IOException {
+        Parent root = navigation.loadEditPage(patient);
+        contentSwitcher.getChildren().removeAll();
+        contentSwitcher.getChildren().setAll(root);
+    }
+
+    public void getHistoricalPage( HistoricalVo historical) throws IOException {
+        Parent root = navigation.loadHistoricalPage(historical);
+        contentSwitcher.getChildren().removeAll();
+        contentSwitcher.getChildren().setAll(root);
+    }
+
 
     @FXML
     public void onClickExport(){

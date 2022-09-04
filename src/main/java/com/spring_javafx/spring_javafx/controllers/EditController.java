@@ -1,7 +1,6 @@
 package com.spring_javafx.spring_javafx.controllers;
 
-import com.spring_javafx.spring_javafx.Navigation;
-import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
+
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
 import javafx.fxml.FXML;
@@ -21,13 +20,13 @@ import java.util.ResourceBundle;
 
 @Component
 public class EditController implements Initializable {
-//    private static final String EDIT_PATIENT = "/fxml/EditPatient.fxml";
-//    private int id;
     private PatientVo patientVo;
 
-//    public EditController(PatientVo patientVo) {
-//        this.patientVo = patientVo;
-//    }
+    public EditController() {
+    }
+    public EditController(PatientVo patientVo) {
+        this.patientVo = patientVo;
+    }
 
     @Lazy
     @Autowired

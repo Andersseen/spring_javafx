@@ -1,6 +1,7 @@
 package com.spring_javafx.spring_javafx;
 
 import com.spring_javafx.spring_javafx.controllers.*;
+import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,9 +18,10 @@ public class Navigation {
 
     private static final String LOGIN_VIEW = "/fxml/Login.fxml";
     private static final String DASHBOARD_VIEW = "/fxml/Dashboard.fxml";
-    private static final String LIST_PATIENTS = "/fxml/ListPatients.fxml";
-    private static final String ADD_PATIENT = "/fxml/AddPatient.fxml";
-    private static final String EDIT_PATIENT = "/fxml/EditPatient.fxml";
+    private static final String LIST_VIEW  = "/fxml/ListPatients.fxml";
+    private static final String ADD_VIEW = "/fxml/AddPatient.fxml";
+    private static final String EDIT_VIEW = "/fxml/EditPatient.fxml";
+    private static final String HISTORICAL_VIEW = "/fxml/Historical.fxml";
 
     private Stage stage;
     @Autowired
@@ -30,7 +32,7 @@ public class Navigation {
     private ListPatientsController listPatientsController;
     @Autowired
     private AddPatientController addPatientController;
-    @Autowired
+
     private EditController editController;
 
     public void showLoginView() {
@@ -48,6 +50,7 @@ public class Navigation {
         }else{
             scene = new Scene(loadFxml(view), 1200, 600);
             stage.setTitle("Dashboard");
+            stage.setResizable(true);
         }
         stage.getIcons().add(new Image("/img/logo.png"));
         stage.setScene(scene);
@@ -68,11 +71,32 @@ public class Navigation {
 
         return switch (view) {
             case DASHBOARD_VIEW -> dashboardController;
-            case LIST_PATIENTS -> listPatientsController;
-            case ADD_PATIENT -> addPatientController;
-            case EDIT_PATIENT -> editController;
+            case LIST_VIEW -> listPatientsController;
+            case ADD_VIEW  -> addPatientController;
             default -> loginController;
         };
+    }
+    public Parent loadEditPage(PatientVo patient){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(EDIT_VIEW));
+        EditController editCL = new EditController(patient);
+        loader.setControllerFactory(param -> editCL);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.out.println("Error with loadEditPage in Navigation");
+        }
+        return loader.getRoot();
+    }
+    public Parent loadHistoricalPage(HistoricalVo historical){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(HISTORICAL_VIEW));
+        HistoricalController historicalCL = new HistoricalController(historical);
+        loader.setControllerFactory(param -> historicalCL);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.out.println("Error with loadHistoricalPage in Navigation");
+        }
+        return loader.getRoot();
     }
 
     public void setStage(Stage stage) {
