@@ -18,10 +18,8 @@ import java.util.ResourceBundle;
 
 @Component
 public class DashboardController implements Initializable {
-    private static final String LIST_PATIENTS = "/fxml/ListPatients.fxml";
-    private static final String ADD_PATIENT = "/fxml/AddPatient.fxml";
-    private static final String EDIT_PATIENT = "/fxml/EditPatient.fxml";
-
+    private static final String ADD_PAGE = "addPage";
+    private static final String LIST_PAGE = "listPage";
     @Lazy
     @Autowired
     private Feedback feedback;
@@ -44,20 +42,20 @@ public class DashboardController implements Initializable {
 
         addPatient.setOnAction(ActionEvent ->{
             try {
-                switchPage(ADD_PATIENT);
+                switchPage(ADD_PAGE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
         patients.setOnAction(ActionEvent ->{
             try {
-                switchPage(LIST_PATIENTS);
+                switchPage(LIST_PAGE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
         try{
-            switchPage(LIST_PATIENTS);
+            switchPage(LIST_PAGE);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,10 +65,10 @@ public class DashboardController implements Initializable {
 
     public void switchPage(String view) throws IOException {
         Parent root;
-        if(view.equals(ADD_PATIENT)){
-            root = navigation.loadFxml(ADD_PATIENT);
+        if(view.equals(ADD_PAGE)){
+            root = navigation.loadPages(ADD_PAGE);
         }else{
-            root =navigation.loadFxml(LIST_PATIENTS);
+            root =navigation.loadPages(LIST_PAGE);
         }
         contentSwitcher.getChildren().removeAll();
         contentSwitcher.getChildren().setAll(root);
@@ -81,12 +79,11 @@ public class DashboardController implements Initializable {
         contentSwitcher.getChildren().setAll(root);
     }
 
-    public void getHistoricalPage( HistoricalVo historical) throws IOException {
-        Parent root = navigation.loadHistoricalPage(historical);
+    public void getHistoricalPage( PatientVo patient, boolean status) throws IOException {
+        Parent root = navigation.loadHistoricalPage(patient, status);
         contentSwitcher.getChildren().removeAll();
         contentSwitcher.getChildren().setAll(root);
     }
-
 
     @FXML
     public void onClickExport(){

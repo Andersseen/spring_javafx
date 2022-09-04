@@ -32,8 +32,10 @@ public class Navigation {
     private ListPatientsController listPatientsController;
     @Autowired
     private AddPatientController addPatientController;
-
+    @Autowired
     private EditController editController;
+    @Autowired
+    private HistoricalController historicalController;
 
     public void showLoginView() {
         show(LOGIN_VIEW);
@@ -57,7 +59,7 @@ public class Navigation {
         stage.centerOnScreen();
         stage.show();
     }
-    public Parent loadFxml(String view) {
+    private Parent loadFxml(String view) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(view));
         loader.setControllerFactory(param -> getViewController(view));
         try {
@@ -76,10 +78,17 @@ public class Navigation {
             default -> loginController;
         };
     }
+
+    public Parent loadPages(String view){
+        if(view.equals("addPage")){
+            return loadFxml(ADD_VIEW);
+        }
+        return loadFxml(LIST_VIEW);
+    }
     public Parent loadEditPage(PatientVo patient){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(EDIT_VIEW));
-        EditController editCL = new EditController(patient);
-        loader.setControllerFactory(param -> editCL);
+        editController.getPatient(patient);
+        loader.setControllerFactory(param -> editController);
         try {
             loader.load();
         } catch (IOException ex) {
@@ -87,10 +96,10 @@ public class Navigation {
         }
         return loader.getRoot();
     }
-    public Parent loadHistoricalPage(HistoricalVo historical){
+    public Parent loadHistoricalPage(PatientVo patient, boolean status){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(HISTORICAL_VIEW));
-        HistoricalController historicalCL = new HistoricalController(historical);
-        loader.setControllerFactory(param -> historicalCL);
+       historicalController.getHistorical(patient, status);
+        loader.setControllerFactory(param -> historicalController);
         try {
             loader.load();
         } catch (IOException ex) {

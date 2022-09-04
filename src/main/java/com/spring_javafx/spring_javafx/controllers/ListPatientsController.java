@@ -1,7 +1,6 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 
-import com.spring_javafx.spring_javafx.Navigation;
 import com.spring_javafx.spring_javafx.models.historical.HistoricalDaoImp;
 import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
 import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
@@ -23,7 +22,6 @@ import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -135,17 +133,14 @@ public class ListPatientsController implements Initializable {
                     historicalIcon.setOnMouseClicked((MouseEvent event) -> {
                         PatientVo patient = table.getSelectionModel().getSelectedItem();
                         HistoricalVo historical =  historicalDaoImp.getHistorical(patient.getId());
-                        if(historical != null){
-                            try {
-                                dashboardCL.getHistoricalPage(historical);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                feedback.alertInformation("Ha pasado un error, no puedes ver historico de este paciente");
-                            }
-                        }else{
-                            feedback.alertInformation("h vacio");
+                        boolean haveHistorical;
+                        haveHistorical = historical != null;
+                        try {
+                            dashboardCL.getHistoricalPage(patient,haveHistorical);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            feedback.alertInformation("Ha pasado un error, no puedes ver historico de este paciente");
                         }
-
                     });
                     //**************
                     HBox managebtn = createHBox(historicalIcon, editIcon, deleteIcon);
@@ -162,10 +157,10 @@ public class ListPatientsController implements Initializable {
     private HBox createHBox(ImageView historicalIcon, ImageView editIcon,ImageView deleteIcon){
         HBox managebtn = new HBox(historicalIcon, editIcon, deleteIcon);
         managebtn.setStyle("-fx-alignment:center");
-        HBox.setMargin(historicalIcon, new Insets(0, 0, 0, 3));
+        HBox.setMargin(historicalIcon, new Insets(0, 5, 0, 0));
 
-        HBox.setMargin(editIcon, new Insets(0, 2, 0, 2));
-        HBox.setMargin(deleteIcon, new Insets(0, 3, 0, 0));
+        HBox.setMargin(editIcon, new Insets(0, 5, 0, 5));
+        HBox.setMargin(deleteIcon, new Insets(0, 0, 0, 5));
         return managebtn;
     }
     private ImageView createIcon(String src){

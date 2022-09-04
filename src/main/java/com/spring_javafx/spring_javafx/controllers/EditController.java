@@ -13,6 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -22,11 +25,15 @@ import java.util.ResourceBundle;
 public class EditController implements Initializable {
     private PatientVo patientVo;
 
-    public EditController() {
-    }
-    public EditController(PatientVo patientVo) {
-        this.patientVo = patientVo;
-    }
+//    public EditController() {
+//    }
+//    @Autowired
+//    public EditController(PatientVo patientVo) {
+//        this.patientVo = patientVo;
+//    }
+
+    @Autowired
+    private DashboardController dashboardCL;
 
     @Lazy
     @Autowired
@@ -40,6 +47,8 @@ public class EditController implements Initializable {
     private AnchorPane historicalPane;
     @FXML
     private Button editBtn;
+    @FXML
+    private Button goBack;
 
     @FXML
     private DatePicker birthdayInput;
@@ -63,7 +72,7 @@ public class EditController implements Initializable {
 
     @FXML
     private ChoiceBox<String> sexInput;
-    private final String[] sex = {"Hombre",  "Mujer"};
+    private final String[] sex = {"Hombre",  "Mujer", ""};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,6 +94,10 @@ public class EditController implements Initializable {
         noteInput.setText(patientVo.getNote());
         phoneInput.setText(patientVo.getPhone());
         sexInput.setValue(patientVo.getSex());
+
+        editBtn.setOnAction(ActionEvent ->{
+            feedback.alertInformation("clcik");
+        });
     }
 
 
@@ -124,13 +137,13 @@ public class EditController implements Initializable {
         message = "Estas seguro que quieres editar este cliente?";
         feedback.alertInformation(message);
 
-//        if (feedback.alertConfirmation(message)){
-//
-//            try {
-//                patientDaoImp.updatePatient(patient);
-//            }catch(Exception ex){
-//                feedback.alertInformation("Ha pasado un error!");
-//            }
-//        }
+    }
+
+    public void onClickGoBack() throws IOException {
+        dashboardCL.switchPage("");
+    }
+
+    public void getPatient(PatientVo patientVo){
+        this.patientVo = patientVo;
     }
 }

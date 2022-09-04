@@ -1,38 +1,33 @@
 package com.spring_javafx.spring_javafx.controllers;
 
+import com.spring_javafx.spring_javafx.models.historical.HistoricalDaoImp;
 import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
+import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
 public class HistoricalController implements Initializable {
-    private HistoricalVo historical;
-    public HistoricalController() {
-    }
+    private PatientVo patient;
+    private boolean haveHistorical;
 
-    public HistoricalController(HistoricalVo historical) {
-        this.historical = historical;
-    }
-    @Lazy
     @Autowired
     private DashboardController dashboardCL;
+    @Autowired
+    private HistoricalDaoImp historicalDaoImp;
+
     @FXML
     private Button addBtn;
     @FXML
     private Button editBtn;
-    @FXML
-    private Button cancelBtn;
     @FXML
     private TextArea historyInput;
     @FXML
@@ -49,15 +44,35 @@ public class HistoricalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        nameLabel.setText(historical.getName());
-        lastNameLabel.setText(historical.getLastName());
+        HistoricalVo historical = historicalDaoImp.getHistorical(this.patient.getId());
+        if(historical != null){
+            historyInput.setText(historical.getHistorical());
+        }
 
-        cancelBtn.setOnMouseClicked((MouseEvent event) -> {
-            try {
-                dashboardCL.switchPage("");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        if (haveHistorical) {
+            editBtn.setVisible(true);
+            addBtn.setVisible(false);
+        } else {
+            editBtn.setVisible(false);
+            addBtn.setVisible(true);
+        }
+
+        nameLabel.setText(patient.getName());
+        lastNameLabel.setText(patient.getLastName());
+
+    }
+
+    public void getHistorical(PatientVo patient, boolean haveHistorical){
+        this.patient = patient;
+        this.haveHistorical = haveHistorical;
+    }
+
+    @FXML
+    public void onClickGoBack(){
+        try {
+            dashboardCL.switchPage("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

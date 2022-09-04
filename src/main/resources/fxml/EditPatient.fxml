@@ -7,6 +7,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -28,20 +31,55 @@
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="-Infinity" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="51.0" prefWidth="143.0" style="-fx-background-color: #43A047;" text="Aceptar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
+                                <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="143.0" style="-fx-background-color: #43A047;" text="Aceptar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="Nunito-Regular" size="20.0" />
                                     </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/check.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
                                 </Button>
-                                <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onClickClearFields" prefHeight="51.0" prefWidth="143.0" style="-fx-background-color: #E53935;" text="Limpiar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
+                                <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onClickClearFields" prefHeight="51.0" prefWidth="143.0" style="-fx-background-color: #E53935;" text="Limpiar" textFill="WHITE" translateX="100.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="Nunito-Regular" size="20.0" />
                                     </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/edit.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
                                 </Button>
+                        <Button fx:id="goBack" mnemonicParsing="false" onAction="#onClickGoBack" prefHeight="51.0" prefWidth="143.0" style="-fx-background-color: #6a1b9a;" text="Volver" textFill="WHITE" translateX="-100.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="Nunito-Regular" size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/back-arrow.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                             </children>
                         </GridPane>
                     </children>
