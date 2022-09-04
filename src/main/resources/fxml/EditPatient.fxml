@@ -35,7 +35,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="143.0" style="-fx-background-color: #43A047;" text="Aceptar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
+                                <Button fx:id="editBtn" onAction="#onClickEditCustomer" mnemonicParsing="false" prefHeight="50.0" prefWidth="143.0" style="-fx-background-color: #43A047;" text="Aceptar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="Nunito-Regular" size="20.0" />
                                     </font>

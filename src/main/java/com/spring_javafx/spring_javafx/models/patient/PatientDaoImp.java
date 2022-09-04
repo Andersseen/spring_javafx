@@ -3,7 +3,6 @@ package com.spring_javafx.spring_javafx.models.patient;
 import com.spring_javafx.spring_javafx.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -23,14 +22,6 @@ public class PatientDaoImp implements PatientDao {
     }
 
     @Override
-    public void updatePatient(PatientVo patientVo) {
-        PatientVo patient = repo.findById(patientVo.getId());
-        if(patient != null){
-            repo.save(patient);
-        }
-    }
-
-
     public void savePatient(PatientVo patient) {
         repo.save(patient);
     }

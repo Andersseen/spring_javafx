@@ -1,21 +1,31 @@
 package com.spring_javafx.spring_javafx.controllers;
 
+import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
+import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
 @Component
 public class AddPatientController implements Initializable {
-
-
-    @FXML
-    private Button addBtn;
+    @Lazy
+    @Autowired
+    private PatientDaoImp patientDaoImp;
+    @Lazy
+    @Autowired
+    private DashboardController dashboardCL;
+    @Lazy
+    @Autowired
+    private Feedback feedback;
     @FXML
     private DatePicker birthdayInput;
     @FXML
@@ -57,15 +67,19 @@ public class AddPatientController implements Initializable {
         historicalLabel.setVisible(false);
         historicalTextarea.setVisible(false);
 
-        historicalCheckBox.setOnMouseClicked((MouseEvent event) -> {
-            if(historicalCheckBox.isSelected()){
-                historicalLabel.setVisible(true);
-                historicalTextarea.setVisible(true);
-                return;
-            }
-            historicalLabel.setVisible(false);
-            historicalTextarea.setVisible(false);
-        });
+//        historicalCheckBox.setOnAction(ActionEvent  -> {
+//            if(historicalCheckBox.isSelected()){
+//                historicalLabel.setVisible(true);
+//                historicalTextarea.setVisible(true);
+//                return;
+//            }
+//            historicalLabel.setVisible(false);
+//            historicalTextarea.setVisible(false);
+//        });
+        historicalCheckBox.setVisible(false);
+        historicalLabel.setVisible(false);
+        historicalTextarea.setVisible(false);
+
     }
 
     public void onClickClearFields(){
@@ -84,43 +98,46 @@ public class AddPatientController implements Initializable {
         msgPhone.setVisible(false);
     }
 
-    public void onClickAddCustomer() {
-        Date birthday = null;
-        Date date = null;
-        String sex = null;
-        if(birthdayInput.getValue() != null){
-            birthday = Date.valueOf(birthdayInput.getValue());
-        }
-        if (dateInput.getValue() != null){
-            date = Date.valueOf(dateInput.getValue());
-        }
-        if (sexInput.getValue() != null){
-            sex = sexInput.getValue();
-        }
-        String email = emailInput.getText();
-        String lastName = lastNameInput.getText();
-        String name = nameInput.getText();
-        String note =noteInput.getText();
-        String phone = phoneInput.getText();
-        String historical = historicalTextarea.getText();
-
-        Feedback feedback = new Feedback();
-
-        String message;
-        if(!name.isEmpty() && !lastName.isEmpty() && !sex.isEmpty() && !phone.isEmpty()){
-            message = "Estas seguro que quieres agregar este cliente?";
-            if(feedback.alertConfirmation(message)){
-                System.out.println("ASDSADSADASDASD");
+    @FXML
+    public void onClickAddPatient() {
+        try{
+            Date birthday = null;
+            Date date = null;
+            String sex = null;
+            if(birthdayInput.getValue() != null){
+                birthday = Date.valueOf(birthdayInput.getValue());
             }
-        }else{
-            message = "Hay que rellenar los campos obligatorios";
-            feedback.alertInformation(message);
-            msgName.setVisible(true);
-            msgLastName.setVisible(true);
-            msgSex.setVisible(true);
-            msgPhone.setVisible(true);
+            if (dateInput.getValue() != null){
+                date = Date.valueOf(dateInput.getValue());
+            }
+            if (sexInput.getValue() != null){
+                sex = sexInput.getValue();
+            }
+            String email = emailInput.getText();
+            String lastName = lastNameInput.getText();
+            String name = nameInput.getText();
+            String note =noteInput.getText();
+            String phone = phoneInput.getText();
+            String historical = historicalTextarea.getText();
+            PatientVo patient = new PatientVo(name, lastName, sex,birthday,phone,email,note, date);
+            String message;
+            if(!name.isEmpty() && !lastName.isEmpty() && !sex.isEmpty() && !phone.isEmpty()){
+                message = "Estas seguro que quieres agregar este cliente?";
+                if(feedback.alertConfirmation(message)){
+                    patientDaoImp.savePatient(patient);
+                }
+            }else{
+                message = "Hay que rellenar los campos obligatorios";
+                feedback.alertInformation(message);
+                msgName.setVisible(true);
+                msgLastName.setVisible(true);
+                msgSex.setVisible(true);
+                msgPhone.setVisible(true);
+            }
+            dashboardCL.switchPage("");
+        }catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }
 

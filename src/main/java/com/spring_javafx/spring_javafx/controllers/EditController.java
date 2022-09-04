@@ -1,6 +1,7 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 
+import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
 import javafx.fxml.FXML;
@@ -13,8 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -23,33 +22,21 @@ import java.util.ResourceBundle;
 
 @Component
 public class EditController implements Initializable {
-    private PatientVo patientVo;
-
-//    public EditController() {
-//    }
-//    @Autowired
-//    public EditController(PatientVo patientVo) {
-//        this.patientVo = patientVo;
-//    }
-
+    private PatientVo patient;
+    @Lazy
     @Autowired
     private DashboardController dashboardCL;
-
     @Lazy
     @Autowired
     private Feedback feedback;
-    private String message;
-
-//    @Autowired
-//    PatientDaoImp patientDaoImp;
+    @Lazy
+    @Autowired
+    private PatientDaoImp patientDaoImp;
 
     @FXML
     private AnchorPane historicalPane;
     @FXML
     private Button editBtn;
-    @FXML
-    private Button goBack;
-
     @FXML
     private DatePicker birthdayInput;
     @FXML
@@ -79,25 +66,21 @@ public class EditController implements Initializable {
         sexInput.getItems().addAll(sex);
         historicalPane.setVisible(false);
 
-//        id = patientVo.getId();
-        if(patientVo.getBirthday() != null){
-            LocalDate lclBirthday = patientVo.getBirthday().toLocalDate();
+        if(patient.getBirthday() != null){
+            LocalDate lclBirthday = patient.getBirthday().toLocalDate();
             birthdayInput.setValue(lclBirthday);
         }
-        if(patientVo.getDate() != null){
-            LocalDate lclDate = patientVo.getDate().toLocalDate();
+        if(patient.getDate() != null){
+            LocalDate lclDate = patient.getDate().toLocalDate();
             dateInput.setValue(lclDate);
         }
-        emailInput.setText(patientVo.getEmail());
-        lastNameInput.setText(patientVo.getLastName());
-        nameInput.setText(patientVo.getName());
-        noteInput.setText(patientVo.getNote());
-        phoneInput.setText(patientVo.getPhone());
-        sexInput.setValue(patientVo.getSex());
+        emailInput.setText(patient.getEmail());
+        lastNameInput.setText(patient.getLastName());
+        nameInput.setText(patient.getName());
+        noteInput.setText(patient.getNote());
+        phoneInput.setText(patient.getPhone());
+        sexInput.setValue(patient.getSex());
 
-        editBtn.setOnAction(ActionEvent ->{
-            feedback.alertInformation("clcik");
-        });
     }
 
 
@@ -112,31 +95,35 @@ public class EditController implements Initializable {
         phoneInput.setText("");
         sexInput.setValue(null);
     }
-
+    @FXML
     public void onClickEditCustomer( ){
-        Date birthday = null;
-        Date date = null;
-        if(birthdayInput.getValue() != null){
-            birthday = Date.valueOf(birthdayInput.getValue());
+        try {
+            Date birthday = null;
+            Date date = null;
+            if(birthdayInput.getValue() != null){
+                birthday = Date.valueOf(birthdayInput.getValue());
+            }
+            if(dateInput.getValue() != null){
+                date = Date.valueOf(dateInput.getValue());
+            }
+            patient.setName(nameInput.getText());
+            patient.setLastName(lastNameInput.getText());
+            patient.setSex(sexInput.getValue());
+            patient.setBirthday(birthday);
+            patient.setPhone(phoneInput.getText());
+            patient.setEmail(emailInput.getText());
+            patient.setNote(noteInput.getText());
+            patient.setDate(date);
+
+            String message = "Estas seguro que quieres editar este cliente?";
+            if(feedback.alertConfirmation(message)){
+                patientDaoImp.savePatient(patient);
+            }
+            onClickGoBack();
+        } catch (IOException e) {
+            System.out.println("error en onClickEditCustomer en edit page");
+            e.printStackTrace();
         }
-        if(dateInput.getValue() != null){
-            date = Date.valueOf(dateInput.getValue());
-        }
-
-        PatientVo patient = new PatientVo();
-        patient.setId(this.patientVo.getId());
-        patient.setName(nameInput.getText());
-        patient.setLastName(lastNameInput.getText());
-        patient.setSex(sexInput.getValue());
-        patient.setBirthday(birthday);
-        patient.setPhone(phoneInput.getText());
-        patient.setEmail(emailInput.getText());
-        patient.setNote(noteInput.getText());
-        patient.setDate(date);
-
-        message = "Estas seguro que quieres editar este cliente?";
-        feedback.alertInformation(message);
-
     }
 
     public void onClickGoBack() throws IOException {
@@ -144,6 +131,6 @@ public class EditController implements Initializable {
     }
 
     public void getPatient(PatientVo patientVo){
-        this.patientVo = patientVo;
+        this.patient = patientVo;
     }
 }

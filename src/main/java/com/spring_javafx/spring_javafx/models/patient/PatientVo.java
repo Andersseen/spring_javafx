@@ -30,4 +30,18 @@ public class PatientVo {
     private String note;
     @Column(name= "date") @Getter @Setter
     private Date date;
+
+    public PatientVo() {
+    }
+
+    public PatientVo(String name, String lastName, String sex, Date birthday, String phone, String email, String note, Date date) {
+        this.name = name;
+        this.lastName = lastName;
+        this.sex = sex;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = email;
+        this.note = note;
+        this.date = date;
+    }
 }
