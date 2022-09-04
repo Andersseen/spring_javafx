@@ -12,26 +12,26 @@ public class HistoricalDaoImp implements HistoricalDao {
 
     @Override
     public List<HistoricalVo> getHistoricals() {
-        return null;
+        return repo.findAll();
     }
 
     @Override
-    public HistoricalVo getHistorical(int id) {
+    public HistoricalVo getHistoricalByPatientId(int id) {
         return repo.findByIdCustomer(id);
     }
 
     @Override
-    public void updateHistorical(HistoricalVo historical) {
-
+    public HistoricalVo getHistorical(int id) {
+        return repo.findById(id);
     }
 
     @Override
     public void saveHistorical(HistoricalVo historical) {
-
+        repo.save(historical);
     }
 
     @Override
-    public void deleteHistorical(int id) {
-
+    public void deleteHistorical(HistoricalVo historical) {
+        repo.delete(historical);
     }
 }

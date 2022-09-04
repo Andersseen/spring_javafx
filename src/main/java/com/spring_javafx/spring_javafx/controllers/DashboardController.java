@@ -1,7 +1,6 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 import com.spring_javafx.spring_javafx.Navigation;
-import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
 import javafx.fxml.FXML;

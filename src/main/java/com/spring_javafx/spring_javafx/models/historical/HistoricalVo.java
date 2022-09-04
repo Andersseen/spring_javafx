@@ -17,7 +17,7 @@ public class HistoricalVo {
     private int idCustomer;
     @Column(name= "name") @Getter @Setter
     private String name;
-    @Column(name= "lastName") @Getter @Setter
+    @Column(name= "last_name") @Getter @Setter
     private String lastName;
     @Column(name= "historical") @Getter @Setter
     private String historical;

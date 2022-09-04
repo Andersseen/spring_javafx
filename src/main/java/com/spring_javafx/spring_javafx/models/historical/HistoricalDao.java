@@ -5,7 +5,7 @@ import java.util.List;
 public interface HistoricalDao {
     List<HistoricalVo> getHistoricals();
     HistoricalVo getHistorical(int id);
-    void updateHistorical(HistoricalVo historical);
+    HistoricalVo getHistoricalByPatientId(int idPatient);
     void saveHistorical(HistoricalVo historical);
-    void deleteHistorical(int id);
+    void deleteHistorical(HistoricalVo historical);
 }
