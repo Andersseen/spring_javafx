@@ -9,10 +9,10 @@ import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 @Component
@@ -118,13 +118,14 @@ public class AddPatientController implements Initializable {
             String name = nameInput.getText();
             String note =noteInput.getText();
             String phone = phoneInput.getText();
-            String historical = historicalTextarea.getText();
+//            String historical = historicalTextarea.getText();
             PatientVo patient = new PatientVo(name, lastName, sex,birthday,phone,email,note, date);
             String message;
-            if(!name.isEmpty() && !lastName.isEmpty() && !sex.isEmpty() && !phone.isEmpty()){
+            if(!name.isEmpty() && !lastName.isEmpty() && !Objects.requireNonNull(sex).isEmpty() && !phone.isEmpty()){
                 message = "Estas seguro que quieres agregar este cliente?";
                 if(feedback.alertConfirmation(message)){
                     patientDaoImp.savePatient(patient);
+                    dashboardCL.switchPage("");
                 }
             }else{
                 message = "Hay que rellenar los campos obligatorios";
@@ -134,7 +135,7 @@ public class AddPatientController implements Initializable {
                 msgSex.setVisible(true);
                 msgPhone.setVisible(true);
             }
-            dashboardCL.switchPage("");
+
         }catch (IOException e) {
             e.printStackTrace();
         }
