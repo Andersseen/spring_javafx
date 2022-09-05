@@ -22,6 +22,7 @@ public class Navigation {
     private static final String ADD_VIEW = "/fxml/AddPatient.fxml";
     private static final String EDIT_VIEW = "/fxml/EditPatient.fxml";
     private static final String HISTORICAL_VIEW = "/fxml/Historical.fxml";
+    private static final String LOADER_VIEW = "/fxml/Loader.fxml";
 
     private Stage stage;
     @Autowired
@@ -36,6 +37,8 @@ public class Navigation {
     private EditController editController;
     @Autowired
     private HistoricalController historicalController;
+    @Autowired
+    private LoaderController loaderController ;
 
     public void showLoginView() {
         show(LOGIN_VIEW);
@@ -75,15 +78,28 @@ public class Navigation {
             case DASHBOARD_VIEW -> dashboardController;
             case LIST_VIEW -> listPatientsController;
             case ADD_VIEW  -> addPatientController;
+            case LOADER_VIEW  -> loaderController;
             default -> loginController;
         };
     }
 
     public Parent loadPages(String view){
-        if(view.equals("addPage")){
-            return loadFxml(ADD_VIEW);
+        switch (view) {
+            case "addPage" -> {
+                return loadFxml(ADD_VIEW);
+            }
+            case "loaderPage" -> {
+                return loadFxml(LOADER_VIEW);
+            }
+
+            default -> {
+                return loadFxml(LIST_VIEW);
+            }
         }
-        return loadFxml(LIST_VIEW);
+//        if(view.equals("addPage")){
+//            return loadFxml(ADD_VIEW);
+//        }
+//        return loadFxml(LIST_VIEW);
     }
     public Parent loadEditPage(PatientVo patient){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(EDIT_VIEW));

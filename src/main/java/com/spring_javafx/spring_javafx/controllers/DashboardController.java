@@ -3,7 +3,9 @@ package com.spring_javafx.spring_javafx.controllers;
 import com.spring_javafx.spring_javafx.Navigation;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
+import com.spring_javafx.spring_javafx.services.files.ExcelFile;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -13,19 +15,24 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 @Component
 public class DashboardController implements Initializable {
     private static final String ADD_PAGE = "addPage";
     private static final String LIST_PAGE = "listPage";
+    private static final String LOADER_PAGE = "loaderPage";
     @Lazy
     @Autowired
     private Feedback feedback;
-
     @Lazy
     @Autowired
     private Navigation navigation;
+    @Lazy
+    @Autowired
+    private ExcelFile excelFile;
 
     @FXML
     private Button addPatient;
@@ -63,12 +70,17 @@ public class DashboardController implements Initializable {
 
 
     public void switchPage(String view) throws IOException {
-        Parent root;
-        if(view.equals(ADD_PAGE)){
-            root = navigation.loadPages(ADD_PAGE);
-        }else{
-            root =navigation.loadPages(LIST_PAGE);
-        }
+        Parent root = switch (view) {
+            case ADD_PAGE -> navigation.loadPages(ADD_PAGE);
+            case LOADER_PAGE -> navigation.loadPages(LOADER_PAGE);
+
+            default -> navigation.loadPages(LIST_PAGE);
+        };
+//        if(view.equals(ADD_PAGE)){
+//            root = navigation.loadPages(ADD_PAGE);
+//        }else{
+//            root =navigation.loadPages(LIST_PAGE);
+//        }
         contentSwitcher.getChildren().removeAll();
         contentSwitcher.getChildren().setAll(root);
     }
@@ -85,12 +97,11 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    public void onClickExport(){
-        feedback.alertInformation(" click on export");
+    public void onClickExport() throws  IOException {
+        switchPage(LOADER_PAGE);
     }
     @FXML
     public void onClickImport(){
-        feedback.alertInformation(" click on import");
+        excelFile.importFile();
     }
-
 }

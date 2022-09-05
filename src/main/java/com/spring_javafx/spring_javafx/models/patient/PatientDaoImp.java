@@ -3,6 +3,8 @@ package com.spring_javafx.spring_javafx.models.patient;
 import com.spring_javafx.spring_javafx.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +16,11 @@ public class PatientDaoImp implements PatientDao {
     @Override
     public List<PatientVo> getPatients() {
         return repo.findAll();
+    }
+
+    @Override
+    public ArrayList<PatientVo> getArrayPatients() {
+        return (ArrayList<PatientVo>) repo.findAll();
     }
 
     @Override
