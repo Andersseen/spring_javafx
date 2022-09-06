@@ -4,6 +4,7 @@ import com.spring_javafx.spring_javafx.models.historical.HistoricalDaoImp;
 import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
+import com.spring_javafx.spring_javafx.services.files.WordFile;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -26,6 +27,9 @@ public class HistoricalController implements Initializable {
     @Lazy
     @Autowired
     private Feedback feedback;
+    @Lazy
+    @Autowired
+    private WordFile wordFile;
     @Lazy
     @Autowired
     private DashboardController dashboardCL;
@@ -140,10 +144,22 @@ public class HistoricalController implements Initializable {
     }
     @FXML
     public void onClickExportHistorical(){
-        feedback.alertInformation("export historico");
+        wordFile.getPatientAndHistorical(this.patient , this.historyInput.getText());
+        wordFile.exportWord();
+        try {
+            dashboardCL.switchPage("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void onClickImportHistorical(){
-        feedback.alertInformation("import historico");
+        wordFile.getPatient(this.patient );
+        wordFile.importWord();
+        try {
+            dashboardCL.getHistoricalPage(this.patient, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -32,6 +32,14 @@ public class WordFile {
     private PatientVo patient;
     private String historicalText;
 
+    public void getPatientAndHistorical(PatientVo patient,String historicalText ){
+        this.patient = patient;
+        this.historicalText = historicalText;
+    }
+
+    public void getPatient(PatientVo patient) {
+        this.patient = patient;
+    }
 
     public void exportWord(){
         try (XWPFDocument doc = new XWPFDocument()) {
@@ -108,6 +116,8 @@ public class WordFile {
                     historical.setHistorical(historicalText);
                 }
                 historicalDaoImp.saveHistorical(historical);
+                message = "Has importado el archivo con exito!";
+                feedback.alertInformation(message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
