@@ -97,11 +97,11 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    public void onClickExport() throws  IOException {
-        switchPage(LOADER_PAGE);
+    public void onClickExport() throws IOException {
+        excelFile.exportFile();
     }
     @FXML
-    public void onClickImport(){
-        excelFile.importFile();
+    public void onClickImport() throws IOException {
+        switchPage(LOADER_PAGE);
     }
 }

@@ -8,20 +8,19 @@ import javafx.concurrent.Task;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.NumberToTextConverter;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-
 import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ImportTaskService extends Service<Void> {
-    private final XSSFSheet customerSheet;
+    private final Sheet customerSheet;
     private final int startCounting = 5;
 
-    public ImportTaskService(XSSFSheet customerSheet) {
+    public ImportTaskService(Sheet customerSheet) {
         this.customerSheet = customerSheet;
     }
 
@@ -72,7 +71,7 @@ public class ImportTaskService extends Service<Void> {
 
                             // *** Validate cell of sex ( number 3) ***
                             if(sexCell != null) {
-                                if (sexCell.getCellTypeEnum() == CellType.STRING) {
+                                if (sexCell.getCellType() == CellType.STRING) {
                                     String sexInput = String.valueOf(sexCell);
                                     if (sexInput.length() > 1) {
                                         // capitalize first letter
@@ -106,7 +105,7 @@ public class ImportTaskService extends Service<Void> {
                             }
                             // *** Validate cell of phone ( number 5) ***
                             if(phoneCell != null) {
-                                phone = switch (phoneCell.getCellTypeEnum()) {
+                                phone = switch (phoneCell.getCellType()) {
                                     case STRING -> phoneCell.getStringCellValue();
                                     case NUMERIC -> NumberToTextConverter.toText(phoneCell.getNumericCellValue());
                                     case BOOLEAN -> String.valueOf(phoneCell.getBooleanCellValue());
@@ -118,7 +117,7 @@ public class ImportTaskService extends Service<Void> {
 
                             // *** Validate cell of email ( number 6) ***
                             if(emailCell != null) {
-                                email = switch (emailCell.getCellTypeEnum()) {
+                                email = switch (emailCell.getCellType()) {
                                     case STRING -> String.valueOf(emailCell);
                                     case NUMERIC -> NumberToTextConverter.toText(emailCell.getNumericCellValue());
                                     case BOOLEAN -> String.valueOf(emailCell.getBooleanCellValue());
@@ -130,7 +129,7 @@ public class ImportTaskService extends Service<Void> {
 
                             // *** Validate cell of note ( number 7) ***
                             if(noteCell != null) {
-                                note = switch (noteCell.getCellTypeEnum()) {
+                                note = switch (noteCell.getCellType()) {
                                     case STRING -> String.valueOf(noteCell);
                                     case NUMERIC -> NumberToTextConverter.toText(noteCell.getNumericCellValue());
                                     case BOOLEAN -> String.valueOf(noteCell.getBooleanCellValue());
