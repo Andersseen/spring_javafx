@@ -1,9 +1,8 @@
 package com.spring_javafx.spring_javafx;
 
 import com.spring_javafx.spring_javafx.controllers.*;
-import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
-import com.spring_javafx.spring_javafx.services.threads.ImportTaskService;
+import com.spring_javafx.spring_javafx.services.threads.ImportService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,7 +40,7 @@ public class Navigation {
     @Autowired
     private LoaderController loaderController ;
     @Autowired
-    private ImportTaskService importTaskService;
+    private ImportService importService;
 
     public void showLoginView() {
         show(LOGIN_VIEW);
@@ -129,7 +128,7 @@ public class Navigation {
 
     public Parent loadLoaderPage(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(LOADER_VIEW));
-        loader.setControllerFactory(param -> importTaskService);
+        loader.setControllerFactory(param -> importService);
         try {
             loader.load();
         } catch (IOException ex) {
