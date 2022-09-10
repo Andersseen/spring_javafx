@@ -8,12 +8,15 @@ import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,7 +27,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.SortedMap;
 
 @Component
 public class ListPatientsController implements Initializable {
@@ -41,7 +46,8 @@ public class ListPatientsController implements Initializable {
 
     @Autowired
     HistoricalDaoImp historicalDaoImp;
-
+    @FXML
+    private TextField filterText;
     @FXML
     private TableView<PatientVo> table;
     @FXML
@@ -72,6 +78,36 @@ public class ListPatientsController implements Initializable {
         setColumnsProperties();
         //Load column actions
         setActionColumnProperties(list);
+
+        FilteredList<PatientVo> filteredData = new FilteredList<>(list, b -> true);
+
+        filterText.textProperty().addListener((observable, oldValue, newValue) ->{
+            filteredData.setPredicate(PatientVo ->{
+
+                if(newValue.isEmpty() || newValue.isBlank()){
+                    return true;
+                }
+                String searchKeyword = newValue.toLowerCase();
+
+                if(PatientVo.getName().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }else if (PatientVo.getLastName().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }else if (PatientVo.getEmail().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }else if (PatientVo.getPhone().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }else if (PatientVo.getNote().toLowerCase().contains(searchKeyword)){
+                    return true;
+                }else {
+                    return false;
+                }
+            });
+        });
+        SortedList<PatientVo> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+
+        table.setItems(sortedData);
     }
 
     private HBox createHBox(ImageView historicalIcon, ImageView editIcon,ImageView deleteIcon){
@@ -170,6 +206,6 @@ public class ListPatientsController implements Initializable {
         };
 
         action.setCellFactory(cellFactory);
-        table.setItems(list);
+//        table.setItems(list);
     }
 }
