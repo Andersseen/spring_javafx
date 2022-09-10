@@ -8,20 +8,25 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellUtil;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@org.springframework.stereotype.Service
 public class ExportTaskService extends Service<Sheet> {
-    private final Workbook workbook;
-    private final ArrayList<PatientVo> list;
+    private Workbook workbook;
+    private ArrayList<PatientVo> list;
     private final int numberOfTitles = 9;
+    private static ApplicationContext applicationContext;
 
-    public ExportTaskService(ArrayList<PatientVo> list, Workbook workbook) {
+    public ExportTaskService getMyClass(){
+        // Now @Autowired MyRepository will work
+        return new ExportTaskService();
+    }
+    public void getPatientsAndWorkbook(ArrayList<PatientVo> list, Workbook workbook){
         this.list = list;
         this.workbook = workbook;
     }
@@ -52,10 +57,8 @@ public class ExportTaskService extends Service<Sheet> {
 
     public void makeHeaderRow(Workbook workbook, Row headerRow) {
         Font headerFont = this.setFontToHeader(workbook);
-        System.out.println("2aa");
         CellStyle headerCellStyle = workbook.createCellStyle();
         headerCellStyle.setFont(headerFont);
-        System.out.println("2bb");
         for (int i = 0; i < excelColumns.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(excelColumns[i]);
@@ -84,16 +87,13 @@ public class ExportTaskService extends Service<Sheet> {
 
     public void printTitle(Workbook workbook, Sheet sheet, Row row) {
         String title = "BASE DE DATOS PACIENTES CEMERESI";
-        System.out.println("1aa");
         Font titleFont = this.setFontToTitle(workbook);
-
         CellStyle titleCellStyle = workbook.createCellStyle();
         titleCellStyle.setFillBackgroundColor((short) 2);
         titleCellStyle.setAlignment(HorizontalAlignment.CENTER);
         titleCellStyle.setFillForegroundColor(IndexedColors.BLACK.getIndex());
         titleCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         titleCellStyle.setFont(titleFont);
-        System.out.println("1bb");
         CellRangeAddress range = new CellRangeAddress(1, 1, 0, excelColumns.length - 1);
 
         // Creates the cell
@@ -105,15 +105,13 @@ public class ExportTaskService extends Service<Sheet> {
         return new Task() {
             @Override
             protected XSSFSheet call() throws Exception {
-                System.out.println("111");
                 Sheet sheet = workbook.createSheet();
                 Row titleRow = sheet.createRow(1);
                 Row headerRow = sheet.createRow(4);
-                System.out.println("222");
                 printTitle( workbook,sheet,titleRow);
                 makeHeaderRow( workbook,headerRow);
-                System.out.println("333");
                 AtomicInteger index = new AtomicInteger(5);
+
                 list.forEach(client -> {
 
                     String birthday = "";

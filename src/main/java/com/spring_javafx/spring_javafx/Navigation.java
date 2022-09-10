@@ -3,6 +3,7 @@ package com.spring_javafx.spring_javafx;
 import com.spring_javafx.spring_javafx.controllers.*;
 import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
+import com.spring_javafx.spring_javafx.services.threads.ImportTaskService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,6 +40,8 @@ public class Navigation {
     private HistoricalController historicalController;
     @Autowired
     private LoaderController loaderController ;
+    @Autowired
+    private ImportTaskService importTaskService;
 
     public void showLoginView() {
         show(LOGIN_VIEW);
@@ -120,6 +123,17 @@ public class Navigation {
             loader.load();
         } catch (IOException ex) {
             System.out.println("Error with loadHistoricalPage in Navigation");
+        }
+        return loader.getRoot();
+    }
+
+    public Parent loadLoaderPage(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(LOADER_VIEW));
+        loader.setControllerFactory(param -> importTaskService);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.out.println("Error with loadEditPage in Navigation");
         }
         return loader.getRoot();
     }

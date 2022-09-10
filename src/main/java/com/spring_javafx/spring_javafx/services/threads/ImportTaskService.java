@@ -2,7 +2,6 @@ package com.spring_javafx.spring_javafx.services.threads;
 
 import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
-import com.spring_javafx.spring_javafx.services.DateService;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.apache.poi.ss.usermodel.Cell;
@@ -12,25 +11,55 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.NumberToTextConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@org.springframework.stereotype.Service
 public class ImportTaskService extends Service<Void> {
-    private final Sheet customerSheet;
+    private  Sheet customerSheet;
     private final int startCounting = 5;
 
-    public ImportTaskService(Sheet customerSheet) {
+    public void getPatientsSheet(Sheet customerSheet){
         this.customerSheet = customerSheet;
     }
 
-    @Lazy
-    @Autowired
-    private DateService dateService;
 
     @Lazy
     @Autowired
     private PatientDaoImp patientDaoImp;
+
+    private final String patternFirstDay = "dd/MM/yyyy";
+    private final String patternLocalMonth = "dd-MMM-yyyy";
+    private final String patternFirstMonth = "MM/dd/yyyy";
+    private final String patternFirstYear = "yyyy/MM/dd";
+
+    List<String> formatStrings = Arrays.asList(patternFirstDay, patternLocalMonth, patternFirstMonth, patternFirstYear);
+
+
+    public Date tryParse(String dateString) {
+        Date date = null;
+        for (String formatString : formatStrings)
+        {
+            try
+            {
+                SimpleDateFormat format = new SimpleDateFormat(formatString);
+                java.util.Date parsed = format.parse(dateString);
+                date = new Date(parsed.getTime());
+                return date;
+            }
+            catch (ParseException e) {
+                System.out.println();
+            }
+        }
+        return date;
+    }
 
     @Override
     protected Task createTask() {
@@ -96,7 +125,7 @@ public class ImportTaskService extends Service<Void> {
                                 String dateString = birthdayCell.toString();
                                 if (!dateString.equals("")) {
                                     try {
-                                        birthday = dateService.tryParse(dateString);
+                                        birthday = tryParse(dateString);
                                     } catch (Exception ex) {
 
                                         Logger.getLogger(ImportTaskService.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,7 +173,7 @@ public class ImportTaskService extends Service<Void> {
                                 if (!dateString.equals("")) {
                                     try {
 
-                                        date = dateService.tryParse(dateString);
+                                        date = tryParse(dateString);
                                     } catch (Exception ex) {
                                         Logger.getLogger(ImportTaskService.class.getName()).log(Level.SEVERE, null, ex);
                                     }

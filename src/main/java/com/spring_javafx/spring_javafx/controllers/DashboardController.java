@@ -97,11 +97,15 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    public void onClickExport() throws IOException {
+    public void onClickExport() throws IOException, InstantiationException, IllegalAccessException {
         excelFile.exportFile();
     }
     @FXML
     public void onClickImport() throws IOException {
-        switchPage(LOADER_PAGE);
+//        navigation.loadLoaderPage();
+        Parent root = navigation.loadLoaderPage();
+        contentSwitcher.getChildren().removeAll();
+        contentSwitcher.getChildren().setAll(root);
+        excelFile.importFile();
     }
 }
