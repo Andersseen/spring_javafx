@@ -1,12 +1,18 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 import com.spring_javafx.spring_javafx.Navigation;
+import com.spring_javafx.spring_javafx.UI.Animations;
 import com.spring_javafx.spring_javafx.models.user.UserDaoImp;
 import com.spring_javafx.spring_javafx.models.user.UserVo;
+import javafx.animation.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -16,7 +22,9 @@ import java.util.ResourceBundle;
 @Component
 public class LoginController implements Initializable {
     @Autowired
-    UserDaoImp userDaoImp;
+    private UserDaoImp userDaoImp;
+    @Autowired
+    private Animations animation;
     @Lazy
     @Autowired
     private Navigation navigation;
@@ -44,11 +52,9 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        accessButton.setOnAction(ActionEvent -> validate());
-        cancelButton.setOnAction(ActionEvent ->{
-            Stage stage = (Stage) cancelButton.getScene().getWindow();
-            stage.close();
-        });
+        animation.btnHoverEffects(accessButton);
+        animation.btnHoverEffects(cancelButton);
+
         checkboxPass.setOnAction(ActionEvent ->{
             if(checkboxPass.isSelected()){
                 passInput.setVisible(false);
@@ -64,7 +70,15 @@ public class LoginController implements Initializable {
         });
     }
 
-    public void validate(){
+    @FXML
+    private void cleanFields(){
+        passInput.setText("");
+        passTextHidden.setText("");
+        usernameInput.setText("");
+    }
+
+    @FXML
+    private void validate(){
         String username = this.usernameInput.getText();
         String pass = this.passInput.getText();
 

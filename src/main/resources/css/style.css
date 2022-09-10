@@ -1,0 +1,23 @@
+.root { -fx-focus-color: #fff;}
+.access-btn {
+   -fx-color:  #43A047;
+   -fx-border-radius: 10px;
+   -fx-background-radius: 10px;
+    -fx-cursor: hand;
+   -fx-border-color: #000;
+}
+.exit-btn {
+   -fx-color:  #E53935;
+   -fx-border-radius: 10px;
+   -fx-background-radius: 10px;
+   -fx-cursor: hand;
+   -fx-border-color: #000;
+}
+
+.custom-btn {
+   -fx-color: #6A1B9A;
+   -fx-border-radius: 10px;
+   -fx-background-radius: 10px;
+   -fx-cursor: hand;
+   -fx-border-color: #000;
+}

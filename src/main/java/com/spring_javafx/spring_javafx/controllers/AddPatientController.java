@@ -1,5 +1,6 @@
 package com.spring_javafx.spring_javafx.controllers;
 
+import com.spring_javafx.spring_javafx.UI.Animations;
 import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
@@ -17,6 +18,8 @@ import java.util.ResourceBundle;
 
 @Component
 public class AddPatientController implements Initializable {
+    @Autowired
+    private Animations animation;
     @Lazy
     @Autowired
     private PatientDaoImp patientDaoImp;
@@ -54,6 +57,10 @@ public class AddPatientController implements Initializable {
     private Label msgSex;
     @FXML
     private Label msgPhone;
+    @FXML
+    private Button addBtn;
+    @FXML
+    private Button cancelBtn;
 
     @FXML
     private ChoiceBox<String> sexInput;
@@ -61,6 +68,9 @@ public class AddPatientController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        animation.btnHoverEffects(addBtn);
+        animation.btnHoverEffects(cancelBtn);
+
         sexInput.getItems().addAll(sex);
         sexInput.setValue("");
 

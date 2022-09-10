@@ -1,6 +1,7 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 
+import com.spring_javafx.spring_javafx.UI.Animations;
 import com.spring_javafx.spring_javafx.models.patient.PatientDaoImp;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
 @Component
 public class EditController implements Initializable {
     private PatientVo patient;
+    @Autowired
+    private Animations animation;
     @Lazy
     @Autowired
     private DashboardController dashboardCL;
@@ -37,6 +40,10 @@ public class EditController implements Initializable {
     private AnchorPane historicalPane;
     @FXML
     private Button editBtn;
+    @FXML
+    private Button goBack;
+    @FXML
+    private Button cancelBtn;
     @FXML
     private DatePicker birthdayInput;
     @FXML
@@ -63,6 +70,10 @@ public class EditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        animation.btnHoverEffects(editBtn);
+        animation.btnHoverEffects(goBack);
+        animation.btnHoverEffects(cancelBtn);
+
         sexInput.getItems().addAll(sex);
         historicalPane.setVisible(false);
 

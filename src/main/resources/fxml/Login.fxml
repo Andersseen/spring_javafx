@@ -150,7 +150,7 @@
                         </Label>
                      </children>
                   </GridPane>
-            <Button fx:id="accessButton" layoutX="93.0" layoutY="286.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" style="-fx-background-color: #43A047;" text="Entrar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button fx:id="accessButton" layoutX="93.0" layoutY="286.0" mnemonicParsing="false" onAction="#validate" prefHeight="26.0" prefWidth="166.0" styleClass="access-btn" text="Entrar" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="Nunito-Regular" size="16.0" />
                </font>
@@ -166,7 +166,7 @@
                      </graphic>
 
             </Button>
-            <Button fx:id="cancelButton" layoutX="95.0" layoutY="335.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="164.0" style="-fx-background-color: #E53935;" text="Cancelar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button fx:id="cancelButton" layoutX="95.0" layoutY="335.0" mnemonicParsing="false" onAction="#cleanFields" prefHeight="26.0" prefWidth="164.0" styleClass="exit-btn" text="Limpiar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="Nunito-Regular" size="16.0" />
                </font>

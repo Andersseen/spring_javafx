@@ -1,6 +1,7 @@
 package com.spring_javafx.spring_javafx.controllers;
 
 import com.spring_javafx.spring_javafx.Navigation;
+import com.spring_javafx.spring_javafx.UI.Animations;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
 import com.spring_javafx.spring_javafx.services.Feedback;
 import com.spring_javafx.spring_javafx.services.files.ExcelFile;
@@ -24,6 +25,8 @@ public class DashboardController implements Initializable {
     private static final String ADD_PAGE = "addPage";
     private static final String LIST_PAGE = "listPage";
     private static final String LOADER_PAGE = "loaderPage";
+    @Autowired
+    private Animations animation;
     @Lazy
     @Autowired
     private Feedback feedback;
@@ -33,18 +36,23 @@ public class DashboardController implements Initializable {
     @Lazy
     @Autowired
     private ExcelFile excelFile;
-
     @FXML
     private Button addPatient;
-
     @FXML
     private StackPane contentSwitcher;
-
     @FXML
     private Button patients;
+    @FXML
+    private Button btnImport;
+    @FXML
+    private Button btnExport;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        animation.btnHoverEffects(addPatient);
+        animation.btnHoverEffects(patients);
+        animation.btnHoverEffects(btnImport);
+        animation.btnHoverEffects(btnExport);
 
         addPatient.setOnAction(ActionEvent ->{
             try {
@@ -97,12 +105,11 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    public void onClickExport() throws IOException, InstantiationException, IllegalAccessException {
+    public void onClickExport(){
         excelFile.exportFile();
     }
     @FXML
-    public void onClickImport() throws IOException {
-//        navigation.loadLoaderPage();
+    public void onClickImport() {
         Parent root = navigation.loadLoaderPage();
         contentSwitcher.getChildren().removeAll();
         contentSwitcher.getChildren().setAll(root);

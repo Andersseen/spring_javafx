@@ -1,5 +1,6 @@
 package com.spring_javafx.spring_javafx.controllers;
 
+import com.spring_javafx.spring_javafx.UI.Animations;
 import com.spring_javafx.spring_javafx.models.historical.HistoricalDaoImp;
 import com.spring_javafx.spring_javafx.models.historical.HistoricalVo;
 import com.spring_javafx.spring_javafx.models.patient.PatientVo;
@@ -21,6 +22,8 @@ import java.util.logging.Logger;
 
 @Component
 public class HistoricalController implements Initializable {
+    @Autowired
+    private Animations animation;
     private HistoricalVo historical;
     private PatientVo patient;
     private boolean haveHistorical;
@@ -37,6 +40,10 @@ public class HistoricalController implements Initializable {
     @Autowired
     private HistoricalDaoImp historicalDaoImp;
 
+    @FXML
+    private Button btnImportHistorical;
+    @FXML
+    private Button btnExportHistorical;
     @FXML
     private Button addBtn;
     @FXML
@@ -56,6 +63,12 @@ public class HistoricalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        animation.btnHoverEffects(addBtn);
+        animation.btnHoverEffects(editBtn);
+        animation.btnHoverEffects(deleteBtn);
+        animation.btnHoverEffects(goBack);
+        animation.btnHoverEffects(btnExportHistorical);
+        animation.btnHoverEffects(btnImportHistorical);
 
         HistoricalVo historical = historicalDaoImp.getHistoricalByPatientId(this.patient.getId());
         if(historical != null){

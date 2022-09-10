@@ -59,6 +59,7 @@ public class Navigation {
             stage.setTitle("Dashboard");
             stage.setResizable(true);
         }
+        scene.getStylesheets().add("css/style.css");
         stage.getIcons().add(new Image("/img/logo.png"));
         stage.setScene(scene);
         stage.centerOnScreen();
